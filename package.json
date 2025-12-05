@@ -1,0 +1,67 @@
+{
+  "name": "datastar-grammar",
+  "displayName": "Datastar Grammar",
+  "description": "TextMate grammar for DataStar attributes in HTML, Twig, Blade, Templ, and more...",
+  "version": "0.1.0",
+  "publisher": "datastar",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YuryKL/textmate-datastar"
+  },
+  "license": "MIT",
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "grammars": [
+      {
+        "scopeName": "datastar.injection",
+        "path": "./src/datastar.injection.tmLanguage.json",
+        "injectTo": [
+          "text.html.basic",
+          "text.html.derivative",
+          "text.html.php",
+          "text.html.twig",
+          "text.html.php.blade",
+          "text.html.edge",
+          "text.html.nunjucks",
+          "text.html.njk",
+          "source.templ",
+          "source.astro",
+          "source.gohtml",
+          "text.html.vue",
+          "source.vue",
+          "source.svelte",
+          "text.html.svelte",
+          "text.html.handlebars",
+          "source.mustache",
+          "source.liquid",
+          "text.html.erb",
+          "text.html.ejs",
+          "text.pug",
+          "text.aspnetcorerazor",
+          "text.html.django",
+          "text.html.jinja",
+          "text.html.jsp"
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "Datastar",
+      "properties": {
+        "datastar.customPlugins": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "description": "Custom Datastar plugin names (without 'data-' prefix). Example: ['my-plugin', 'custom-action']"
+        }
+      }
+    }
+  }
+}

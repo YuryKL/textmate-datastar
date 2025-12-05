@@ -1,0 +1,8 @@
+//- Test for text.pug
+doctype html
+html
+  body
+    h1= title
+    div(data-signals="{ count: 0 }")
+    button(data-on:click="$count++") Increment
+    span(data-text="$count")

@@ -1,0 +1,74 @@
+{# DataStar Test File for Twig #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DataStar + Twig Test</title>
+</head>
+<body>
+
+  <h1>DataStar Syntax Highlighting in Twig</h1>
+
+  {# Basic DataStar plugins #}
+  <div data-show="$visible">Show when visible</div>
+  <div data-text="$message">{{ message }}</div>
+
+  {# With Twig variables #}
+  <div data-signals="{count: {{ initialCount }}, name: '{{ username }}'}">
+    Signals with Twig
+  </div>
+
+  {# DataStar with keys and modifiers #}
+  <button data-on:click__debounce.500ms="$count++">
+    Increment ({{ count }})
+  </button>
+
+  {# DataStar expressions #}
+  <div data-text="$items.map(x => x * 2).join(', ')">
+    Array mapping
+  </div>
+
+  {# Arrow functions #}
+  <div data-text="$users.filter(u => u.active).length">
+    Active users
+  </div>
+
+  {# Object literals #}
+  <button data-on:click="@post('/api/user', {id: {{ userId }}, name: $name})">
+    Submit with Twig ID
+  </button>
+
+  {# Template literals #}
+  <div data-text="`Hello ${$name}!`">
+    Template literal
+  </div>
+
+  {# Twig control structures with DataStar #}
+  {% for item in items %}
+    <div data-bind:value="$item{{ loop.index }}">
+      {{ item.name }}
+    </div>
+  {% endfor %}
+
+  {% if showDatastar %}
+    <button data-on:click="@get('/api/data')">
+      Fetch Data
+    </button>
+  {% endif %}
+
+  {# Nested keys #}
+  <div data-attr:data-bind:foo="$value">
+    Nested plugin-like keys
+  </div>
+
+  {# Complex expressions #}
+  <button data-on:click="@post('/api/batch', {
+    items: [...$cart].map(item => ({...item, processed: true})),
+    total: $cart.reduce((sum, item) => sum + (item.price ?? 0), 0),
+    userId: {{ userId }}
+  })">
+    Submit cart (Twig + DataStar)
+  </button>
+
+</body>
+</html>

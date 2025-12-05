@@ -1,0 +1,236 @@
+package main
+
+import "fmt"
+
+// Counter component with DataStar attributes
+templ Counter(initialCount int) {
+	<div>
+		<h2>Counter Component</h2>
+	</div>
+}
+
+// Search component with debounced input
+templ SearchBox() {
+	<div>
+		<h2>Search Box</h2>
+		<!-- DataStar with modifiers in templ -->
+		<input
+			type="text"
+			data-bind:value__debounce.300ms="$search"
+			placeholder="Search..."
+		/>
+		<div data-show="$results.length > 0">
+			Results: <span data-text="$results.length">0</span>
+		</div>
+	</div>
+}
+
+// Form component with DataStar validation
+templ UserForm(user User) {
+	<form data-on:submit__prevent="@post('/api/users')">
+		<h2>User Form</h2>
+
+		<!-- Mixed templ and DataStar attributes -->
+		<label for="name">Name:</label>
+		<input
+			id="name"
+			type="text"
+			data-bind:value="$user.name"
+			value={ user.Name }
+		/>
+
+		<label for="email">Email:</label>
+		<input
+			id="email"
+			type="email"
+			data-bind:value="$user.email"
+			value={ user.Email }
+		/>
+
+		<!-- DataStar with multiple modifiers -->
+		<button
+			type="submit"
+			data-on:click__prevent__throttle.1s="@post('/submit')"
+		>
+			Submit
+		</button>
+	</form>
+}
+
+// Conditional rendering with DataStar
+templ AuthStatus(isLoggedIn bool) {
+	<div>
+		<!-- DataStar show/hide -->
+		<div data-show="$user.isLoggedIn">
+			Welcome, <span data-text="$user.name">User</span>!
+			<button data-on:click="@post('/logout')">Logout</button>
+		</div>
+
+		<div data-show="!$user.isLoggedIn">
+			<button data-on:click="@get('/login')">Login</button>
+		</div>
+	</div>
+}
+
+// Complex component with various DataStar features
+templ Dashboard() {
+	<div>
+		<h1>Dashboard</h1>
+
+		<!-- Signals with defaults -->
+		<div data-signals:count__ifmissing="0">
+			Count: <span data-text="$count">0</span>
+		</div>
+
+		<!-- Class binding -->
+		<div data-class:active="$isActive" class="dashboard-item">
+			Status indicator
+		</div>
+
+		<!-- Attribute binding -->
+		<button data-attr:disabled="$isLoading">
+			<span data-show="!$isLoading">Click me</span>
+			<span data-show="$isLoading">Loading...</span>
+		</button>
+
+		<!-- Computed values -->
+		<div data-computed:total__ifmissing="100">
+			Total: <span data-text="$total">100</span>
+		</div>
+
+		<!-- Multiple DataStar attributes on one element -->
+		<input
+			type="text"
+			data-bind:value__debounce.500ms__passive="$input"
+			data-on:keyup__enter="@post('/search')"
+			placeholder="Type and press enter"
+		/>
+
+		<!-- Templ conditionals with DataStar -->
+		if isLoggedIn {
+			<div data-show="$notifications.length > 0">
+				You have <span data-text="$notifications.length">0</span> notifications
+			</div>
+		}
+	</div>
+}
+
+// List component with DataStar
+templ TodoList(todos []Todo) {
+	<div>
+		<h2>Todo List</h2>
+
+		<!-- Add todo form -->
+		<form data-on:submit__prevent="@post('/api/todos')">
+			<input
+				type="text"
+				data-bind:value="$newTodo"
+				placeholder="New todo..."
+			/>
+			<button type="submit">Add</button>
+		</form>
+
+		<!-- Todo items -->
+		<ul>
+			for _, todo := range todos {
+				<li>
+					<!-- Toggle completion -->
+					<input
+						type="checkbox"
+						data-on:change="@patch('/api/todos/' + $todo.id)"
+						checked?={ todo.Completed }
+					/>
+
+					<!-- Todo text with conditional styling -->
+					<span
+						data-text="$todo.text"
+						data-class:completed="$todo.completed"
+					>
+						{ todo.Text }
+					</span>
+
+					<!-- Delete button -->
+					<button data-on:click="@delete('/api/todos/' + $todo.id)">
+						Delete
+					</button>
+				</li>
+			}
+		</ul>
+	</div>
+}
+
+// Nested keys component
+templ NestedKeys() {
+	<div>
+		<h2>Nested Keys</h2>
+
+		<!-- Basic nested keys: data-attr:data-bind:foo -->
+		<div data-attr:data-bind:foo="$value">Nested key example</div>
+		<input data-attr:data-value:username="$user.name" />
+		<button data-attr:data-on:click="$action()">Nested event binding</button>
+
+		<!-- Nested keys with modifiers -->
+		<input data-attr:data-bind:value__debounce.500ms="$search" />
+		<div data-attr:data-class:active__passive="$isActive">Nested with modifier</div>
+
+		<!-- Multiple levels of nesting -->
+		<div data-attr:data-bind:foo:bar="$deep.value">Three-level nesting</div>
+		<input data-attr:data-on:input:change="$handler()" />
+
+		<!-- Nested keys in templ expressions -->
+		<div data-attr:data-bind:value={ fmt.Sprint("test") }>
+			With templ expression
+		</div>
+	</div>
+}
+
+// Edge cases and special scenarios
+templ EdgeCases() {
+	<div>
+		<!-- Hyphenated plugin -->
+		<div data-ignore-morph>No morphing here</div>
+
+		<!-- Modifier with dots and numbers -->
+		<div data-animate__duration.1.5s="opacity">Animated</div>
+
+		<!-- Multiple modifiers with complex values -->
+		<input
+			data-bind:value__debounce.500ms__passive__capture="$input"
+		/>
+
+		<!-- DataStar in templ conditionals -->
+		if true {
+			<button data-on:click__prevent="$action()">
+				Inside conditional
+			</button>
+		}
+
+		<!-- DataStar in templ loops -->
+		for i := 0; i < 3; i++ {
+			<div data-on:click={ fmt.Sprintf("$items[%d].toggle()", i) }>
+				Item { fmt.Sprint(i) }
+			</div>
+		}
+
+		<!-- Mixed with regular data attributes -->
+		<div
+			data-custom="regular-data-attr"
+			data-on:click="$action()"
+			data-testid="test-element"
+		>
+			Mixed attributes
+		</div>
+	</div>
+}
+
+// Type definitions for reference
+type User struct {
+	Name  string
+	Email string
+}
+
+type Todo struct {
+	ID        int
+	Text      string
+	Completed bool
+}

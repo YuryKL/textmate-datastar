@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataStar Grammar Test</title>
+</head>
+<body>
+  <h1>DataStar TextMate Grammar Test Cases</h1>
+
+  <!-- ========================================
+       Basic Plugin Tests (no key, no modifiers)
+       ======================================== -->
+  <section>
+    <h2>Basic Plugins</h2>
+    <div data-show="$visible">Basic show plugin</div>
+    <div data-text="$message">Basic text plugin</div>
+    <div data-my-foo="$message"></div>
+    <div data-signals="$count=0">Basic signals plugin</div>
+    <div data-ignore-morph>No value plugin</div>
+    <div foo-bar="hello"
+  </section>
+
+  <!-- ========================================
+       Plugin + Key Tests
+       ======================================== -->
+  <section>
+    <h2>Plugin with Key</h2>
+    <button data-on:click="$count++">Click event</button>
+    <input data-bind:value="$username" />
+    <div data-class:active="$isActive">Class binding</div>
+    <div data-attr:disabled="$isDisabled">Attribute binding</div>
+    <form data-on:submit="@post('/api')">Submit event</form>
+  </section>
+
+  <!-- ========================================
+       Plugin + Key + Single Modifier Tests
+       ======================================== -->
+  <section>
+    <h2>Plugin with Key and Single Modifier</h2>
+    <input data-bind:value__debounce.500ms="$search" />
+    <button data-on:click__prevent="handleClick()">Prevent default</button>
+    <div data-on:click__throttle.1s="$action()">Throttled click</div>
+    <input data-bind:value__passive="$input" />
+  </section>
+
+  <!-- ========================================
+       Plugin + Key + Multiple Modifiers Tests
+       ======================================== -->
+  <section>
+    <h2>Plugin with Key and Multiple Modifiers</h2>
+    <form data-on:submit__prevent__throttle.1s="@post('/api')">
+      Complex form submission
+    </form>
+    <button data-on:click__prevent__stop="$count++">
+      Multiple modifiers
+    </button>
+    <input data-bind:value__debounce.500ms__passive="$username" />
+  </section>
+
+  <!-- ========================================
+       Plugin + Modifier (no key) Tests
+       ======================================== -->
+  <section>
+    <h2>Plugin with Modifier (no key)</h2>
+    <div data-signals:count__ifmissing="0">Signals with ifmissing</div>
+    <div data-computed:total__ifmissing="100">Computed with default</div>
+  </section>
+
+  <!-- ========================================
+       Nested Keys Tests
+       ======================================== -->
+  <section>
+    <h2>Nested Keys</h2>
+    <!-- data-attr:data-bind:foo pattern -->
+    <input type="checkbox" data-bind:data-attr:data-ignore="$value">Nested key example</div>
+    <div data-query-string__filter__history></div>
+
+    <input data-attr:data-value:username="$user.name" />
+    <button data-attr:data-on:click="$action()">Nested event binding</button>
+
+    <!-- Nested keys with modifiers -->
+    <input data-attr:data-bind:value__debounce.500ms="$search" />
+    <div data-attr:data-class:active__passive="$isActive">Nested with modifier</div>
+
+    <!-- Multiple levels of nesting -->
+    <div data-attr:data-bind:foo:bar="$deep.value">Three-level nesting</div>
+    <input data-attr:data-on:input:change="@foo({foo: 42}, '/url')" />
+  </section>
+
+  <!-- ========================================
+       Edge Cases
+       ======================================== -->
+  <section>
+    <h2>Edge Cases</h2>
+
+    <!-- Hyphenated plugin names -->
+    <div data-ignore-morph>Hyphenated plugin</div>
+
+    <!-- Multiple attributes on same element -->
+    <div
+      data-show="$visible"
+      data-text="$message"
+      data-class:active="$isActive"
+      class="normal-class"
+    >
+      Multiple DataStar attributes
+    </div>
+
+    <!-- Mixed with regular data attributes (should still highlight) -->
+    <div data-my-foo="$value">Non-DataStar data attribute</div>
+
+    <!-- Numeric values in modifiers -->
+    <input data-bind:value__debounce.500ms="$input" />
+    <button data-on:click__throttle.2s="$action()">Throttle 2 seconds</button>
+
+    <!-- Complex modifier values with dots -->
+    <div data-animate__duration.1.5s="opacity">Duration with decimal</div>
+  </section>
+
+  <!-- ========================================
+       Real-World Examples
+       ======================================== -->
+  <section>
+    <h2>Real-World Examples</h2>
+
+    <!-- Counter example -->
+    <div>
+      <button data-on:click="$count++">Increment</button>
+      <button data-on:click="$count--">Decrement</button>
+      <span data-text="$count">0</span>
+    </div>
+
+    <!-- Search with debounce -->
+    <div>
+      <input
+        type="text"
+        data-bind:value__debounce.300ms="$search"
+        placeholder="Search..."
+      />
+      <div data-show="$results.length > 0">
+        Results: <span data-text="$results.length">0</span>
+      </div>
+    </div>
+
+    <!-- Form handling -->
+    <form data-on:submit__prevent="@post('/api/submit')">
+      <input data-bind:value="$formData.name" name="name" />
+      <input data-bind:value="$formData.email" name="email" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <!-- Conditional rendering -->
+    <div data-show="$user.isLoggedIn">
+      Welcome, <span data-text="$user.name">Guest</span>!
+    </div>
+    <div data-show="!$user.isLoggedIn">
+      <button data-on:click="@get('/login')">Login</button>
+    </div>
+  </section>
+
+  <!-- ========================================
+       Expression Highlighting Tests (Milestone 2)
+       ======================================== -->
+  <section>
+    <h2>Expression Highlighting</h2>
+
+    <h3>Signal References</h3>
+    <!-- Basic signals -->
+    <div data-text="$message">Simple signal</div>
+    <div data-text="$count">Number signal</div>
+
+    <!-- Property access -->
+    <div data-text="$user.name">Property access</div>
+    <div data-text="$user.profile.email">Nested properties</div>
+
+    <!-- Array access -->
+    <div data-text="$items[0]">Array index</div>
+    <div data-text="$items[0].name">Array + property</div>
+
+    <!-- Optional chaining -->
+    <div data-text="$user?.email">Optional chaining</div>
+    <div data-text="$data?.user?.profile">Nested optional</div>
+
+    <h3>Action Calls</h3>
+    <!-- HTTP methods -->
+    <button data-on:click="@get('/api/users')">GET request</button>
+    <button data-on:click="@post('/api/data')">POST request</button>
+    <button data-on:click="@put('/api/update')">PUT request</button>
+    <button data-on:click="@delete('/api/remove')">DELETE request</button>
+
+    <!-- With arguments -->
+    <button data-on:click="@post('/api', {id: $userId})">POST with data</button>
+    <button data-on:click="@get('/api/' + $id)">Dynamic URL</button>
+
+    <h3>Operators</h3>
+    <!-- Increment/decrement -->
+    <button data-on:click="$count++">Increment (postfix)</button>
+    <button data-on:click="++$count">Increment (prefix)</button>
+    <button data-on:click="$count--">Decrement</button>
+
+    <!-- Arithmetic -->
+    <div data-text="$a + $b">Addition</div>
+    <div data-text="$a - $b">Subtraction</div>
+    <div data-text="$a * $b">Multiplication</div>
+    <div data-text="$a / $b">Division</div>
+    <div data-text="$a % $b">Modulo</div>
+
+    <!-- Comparison -->
+    <div data-show="$count > 5">Greater than</div>
+    <div data-show="$count < 10">Less than</div>
+    <div data-show="$count >= 5">Greater or equal</div>
+    <div data-show="$count <= 10">Less or equal</div>
+    <div data-show="$count === 5">Strict equality</div>
+    <div data-show="$count !== 0">Strict inequality</div>
+
+    <!-- Logical -->
+    <div data-show="$visible && $active">Logical AND</div>
+    <div data-show="$a || $b">Logical OR</div>
+    <div data-show="!$hidden">Logical NOT</div>
+
+    <!-- Assignment -->
+    <button data-on:click="$count = 0">Reset to zero</button>
+    <button data-on:click="$user.name = 'John'">Set property</button>
+
+    <h3>Complex Expressions</h3>
+    <!-- Ternary -->
+    <div data-text="$count > 5 ? 'high' : 'low'">Conditional</div>
+    <div data-text="$count % 2 === 0 ? 'even' : 'odd'">Even/Odd</div>
+
+    <!-- Multiple operations -->
+    <div data-text="$count * 2 + 1">Math expression</div>
+    <div data-show="$count > 0 && $count < 100">Range check</div>
+
+    <!-- Event access -->
+    <input data-on:input="$value = event.target.value" />
+
+    <h3>Strings and Numbers</h3>
+    <!-- String literals -->
+    <div data-text="'Hello World'">Single quotes</div>
+    <div data-text="&quot;Hello World&quot;">Double quotes</div>
+
+    <!-- Numbers -->
+    <div data-text="42">Integer</div>
+    <div data-text="3.14">Decimal</div>
+
+    <!-- Booleans and keywords -->
+    <div data-show="true">True literal</div>
+    <div data-show="false">False literal</div>
+    <div data-text="null">Null</div>
+
+    <h3>Mixed Examples</h3>
+    <!-- Signals + Actions -->
+    <button data-on:click="$count++; @post('/api', {count: $count})">
+      Increment and save
+    </button>
+
+    <!-- Complex action arguments -->
+    <button data-on:click="@post('/api', {id: $userId, name: $user.name, active: true})">
+      Submit complex data
+    </button>
+
+    <!-- Nested in ternary -->
+    <div data-text="$user ? $user.name : 'Guest'">Fallback name</div>
+
+    <!-- Chained operations -->
+    <div data-show="$items.length > 0 && $items[0].active">
+      First item active
+    </div>
+  </section>
+
+  <!-- ============================================
+       Feature Parity: New JavaScript Features
+       ============================================ -->
+  <section>
+    <h2>New JavaScript Features (Feature Parity)</h2>
+
+    <!-- Compound Assignment Operators -->
+    <h3>Compound Assignment</h3>
+    <button data-on:click="$count += 5">Add 5</button>
+    <button data-on:click="$count -= 1">Subtract 1</button>
+    <button data-on:click="$total *= 2">Double</button>
+    <button data-on:click="$value /= 4">Divide by 4</button>
+    <button data-on:click="$remainder %= 3">Modulo 3</button>
+
+    <!-- Nullish Coalescing -->
+    <h3>Nullish Coalescing (??)</h3>
+    <div data-text="$user.name ?? 'Guest'">Name with default</div>
+    <div data-text="$count ?? 0">Count with default</div>
+    <button data-on:click="$value = $input ?? $fallback ?? 100">Multi-level fallback</button>
+
+    <!-- Object Literals -->
+    <h3>Object Literals</h3>
+    <button data-on:click="@post('/api/users', {id: 1, name: $userName, active: true})">
+      Post object
+    </button>
+    <button data-on:click="@patch('/api/user', {id: $userId, email: $email, verified: false})">
+      Update user
+    </button>
+    <div data-signals="{count: 0, user: {name: 'Alice', age: 30}, active: true}">
+      Initialize signals
+    </div>
+
+    <!-- Object Literals with Spread -->
+    <h3>Object with Spread Operator</h3>
+    <button data-on:click="@post('/api/profile', {...$user, updated: true, timestamp: Date.now()})">
+      Merge and post
+    </button>
+    <button data-on:click="$merged = {...$defaults, ...$custom}">Merge objects</button>
+
+    <!-- Array Literals -->
+    <h3>Array Literals</h3>
+    <div data-text="[$count, $name, $email].join(', ')">Array to CSV</div>
+    <button data-on:click="$list = [1, 2, 3, 4, 5]">Set array</button>
+    <button data-on:click="$items = [$first, $second, $third]">Array of signals</button>
+    <div data-show="[$admin, $moderator, $user].includes(true)">Has permission</div>
+
+    <!-- Array with Spread -->
+    <h3>Array with Spread Operator</h3>
+    <button data-on:click="$items = [...$existing, newItem, anotherItem]">Append to array</button>
+    <button data-on:click="$all = [...$list1, ...$list2, ...$list3]">Merge arrays</button>
+    <div data-text="[...$names].reverse().join(', ')">Reversed names</div>
+
+    <!-- Arrow Functions -->
+    <h3>Arrow Functions</h3>
+    <div data-text="$items.map(x => x * 2).join(', ')">Double each</div>
+    <div data-text="$users.filter(u => u.active).length">Active users count</div>
+    <div data-text="$data.reduce((acc, v) => acc + v, 0)">Sum values</div>
+    <button data-on:click="$sorted = $items.sort((a, b) => a - b)">Sort ascending</button>
+    <div data-show="$items.some(item => item.urgent)">Has urgent items</div>
+    <div data-text="$list.find(x => x.id === $selectedId).name">Find by ID</div>
+
+    <!-- Arrow Functions with Block Body -->
+    <h3>Arrow Functions (Block Body)</h3>
+    <button data-on:click="$items.forEach(item => { $total += item.price; $count += 1 })">
+      Calculate total
+    </button>
+    <div data-computed="$users.map(u => { return u.active ? u.name : null }).filter(x => x)">
+      Active user names
+    </div>
+
+    <!-- Complex Combinations -->
+    <h3>Combined Features</h3>
+    <button data-on:click="@post('/api/batch', {
+      items: [...$cart].map(item => ({...item, processed: true})),
+      total: $cart.reduce((sum, item) => sum + (item.price ?? 0), 0),
+      timestamp: Date.now()
+    })">
+      Submit cart with transforms
+    </button>
+
+    <div data-text="[...$items]
+      .filter(x => x.active ?? false)
+      .map(x => ({...x, updated: true}))
+      .reduce((acc, item) => acc + item.value, 0)">
+      Complex pipeline
+    </div>
+  </section>
+
+  <!-- ============================================
+       Custom Plugin Support
+       ============================================
+
+       To test these, add to settings.json:
+       "datastar.customPlugins": ["my-plugin", "my-action", "my-bind", "my-attr", "custom-action", "custom-text"]
+       Then reload VS Code window.
+       ============================================ -->
+  <section>
+    <h2>Custom DataStar Plugins</h2>
+
+    <!-- Basic custom plugin -->
+    <div data-my-plugin="$custom">Custom plugin</div>
+    <button data-my-action:click="$count++">Custom action</button>
+
+    <!-- Custom plugin with modifiers -->
+    <input data-my-bind:value__debounce.500ms="$search" />
+
+    <!-- Custom plugin with nested keys -->
+    <div data-my-attr:data-my-bind:foo="$value">Nested custom</div>
+
+    <!-- Custom plugin with expressions -->
+    <button data-custom-action="@post('/api', {id: $userId, custom: true})">
+      Custom with object
+    </button>
+    <div data-custom-text="$items.map(x => x.custom).join(', ')">
+      Custom with arrow function
+    </div>
+  </section>
+
+</body>
+</html>
