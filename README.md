@@ -1,4 +1,4 @@
-# DataStar TextMate Grammar
+# Datastar TextMate Grammar
 
 Syntax highlighting for DataStar attributes across 21 template engines (25 language scopes).
 
