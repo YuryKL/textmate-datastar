@@ -46,8 +46,26 @@
           }
         },
         {
-          "comment": "Match modifiers: __modifier",
-          "match": "(__)([a-z][a-z0-9.-]*)",
+          "comment": "Match modifiers with arguments: __modifier.arg",
+          "match": "(__)([a-z][a-z0-9-]*)(\\.)([a-z0-9]+)",
+          "captures": {
+            "1": {
+              "name": "punctuation.separator.modifier.datastar"
+            },
+            "2": {
+              "name": "storage.modifier.datastar"
+            },
+            "3": {
+              "name": "punctuation.separator.modifier-arg.datastar"
+            },
+            "4": {
+              "name": "constant.numeric.modifier-arg.datastar"
+            }
+          }
+        },
+        {
+          "comment": "Match modifiers without arguments: __modifier",
+          "match": "(__)([a-z][a-z0-9-]*)",
           "captures": {
             "1": {
               "name": "punctuation.separator.modifier.datastar"
