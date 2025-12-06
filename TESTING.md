@@ -4,7 +4,7 @@
 
 1. Press `F5` to launch Extension Development Host `Developer: Debug Extension Host in New Window`. Alternatively, compile the extension to .vsix and install manually. `npx @vscode/vsce pack`
 2. Open test files from `test-samples/`
-3. Use **Inspect Editor Tokens and Scopes** to verify DataStar scopes
+3. Use **Inspect Editor Tokens and Scopes** to verify Datastar scopes
 
 ## Test Files by Scope
 

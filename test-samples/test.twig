@@ -1,15 +1,15 @@
-{# DataStar Test File for Twig #}
+{# Datastar Test File for Twig #}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DataStar + Twig Test</title>
+  <title>Datastar + Twig Test</title>
 </head>
 <body>
 
-  <h1>DataStar Syntax Highlighting in Twig</h1>
+  <h1>Datastar Syntax Highlighting in Twig</h1>
 
-  {# Basic DataStar plugins #}
+  {# Basic Datastar plugins #}
   <div data-show="$visible">Show when visible</div>
   <div data-text="$message">{{ message }}</div>
 
@@ -18,12 +18,12 @@
     Signals with Twig
   </div>
 
-  {# DataStar with keys and modifiers #}
+  {# Datastar with keys and modifiers #}
   <button data-on:click__debounce.500ms="$count++">
     Increment ({{ count }})
   </button>
 
-  {# DataStar expressions #}
+  {# Datastar expressions #}
   <div data-text="$items.map(x => x * 2).join(', ')">
     Array mapping
   </div>
@@ -43,7 +43,7 @@
     Template literal
   </div>
 
-  {# Twig control structures with DataStar #}
+  {# Twig control structures with Datastar #}
   {% for item in items %}
     <div data-bind:value="$item{{ loop.index }}">
       {{ item.name }}
@@ -67,7 +67,7 @@
     total: $cart.reduce((sum, item) => sum + (item.price ?? 0), 0),
     userId: {{ userId }}
   })">
-    Submit cart (Twig + DataStar)
+    Submit cart (Twig + Datastar)
   </button>
 
 </body>

@@ -1,15 +1,15 @@
-{{-- DataStar Test File for Laravel Blade --}}
+{{-- Datastar Test File for Laravel Blade --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DataStar + Blade Test</title>
+  <title>Datastar + Blade Test</title>
 </head>
 <body>
 
-  <h1>DataStar Syntax Highlighting in Blade</h1>
+  <h1>Datastar Syntax Highlighting in Blade</h1>
 
-  {{-- Basic DataStar plugins --}}
+  {{-- Basic Datastar plugins --}}
   <div data-show="$visible">Show when visible</div>
   <div data-text="$message">{{ $message }}</div>
 
@@ -18,12 +18,12 @@
     Signals with Blade
   </div>
 
-  {{-- DataStar with keys and modifiers --}}
+  {{-- Datastar with keys and modifiers --}}
   <button data-on:click__debounce.500ms="$count++">
     Increment ({{ $count }})
   </button>
 
-  {{-- DataStar expressions --}}
+  {{-- Datastar expressions --}}
   <div data-text="$items.map(x => x * 2).join(', ')">
     Array mapping
   </div>
@@ -48,7 +48,7 @@
 
 !! }}
 
-  {{-- Blade directives with DataStar --}}
+  {{-- Blade directives with Datastar --}}
   @foreach($items as $index => $item)
     <div data-bind:value="$item{{ $index }}">
       {{ $item->name }}
@@ -61,7 +61,7 @@
     </button>
   @endif
 
-  {{-- Using Blade components with DataStar --}}
+  {{-- Using Blade components with Datastar --}}
   <x-button data-on:click="$count++">
     Increment
   </x-button>
@@ -77,7 +77,7 @@
     total: $cart.reduce((sum, item) => sum + (item.price ?? 0), 0),
     userId: {{ $userId }}
   })">
-    Submit cart (Blade + DataStar)
+    Submit cart (Blade + Datastar)
   </button>
 
   {{-- Blade escaped content --}}
@@ -85,7 +85,7 @@
     {!! $content !!}
   </div>
 
-  {{-- Auth checks with DataStar --}}
+  {{-- Auth checks with Datastar --}}
   @auth
     <button data-on:click="@post('/logout')" data-signals="{user: '{{ auth()->user()->name }}'}">
       Logout

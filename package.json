@@ -1,7 +1,7 @@
 {
   "name": "datastar-grammar",
   "displayName": "Datastar Grammar",
-  "description": "TextMate grammar for DataStar attributes in HTML, Twig, Blade, Templ, and more...",
+  "description": "TextMate grammar for Datastar attributes in HTML, Twig, Blade, Templ, and more...",
   "version": "0.1.0",
   "publisher": "datastar",
   "engines": {

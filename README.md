@@ -1,6 +1,6 @@
 # Datastar TextMate Grammar
 
-Syntax highlighting for DataStar attributes across 21 template engines (25 language scopes).
+Syntax highlighting for Datastar attributes across 21 template engines (25 language scopes).
 
 ## Features
 
@@ -57,7 +57,7 @@ Rules: lowercase, hyphens only, no `data-` prefix. Reload window after changes.
 
 - Some LSPs (C# for Razor) override textmate colors with semantic tokens
 - Template delimiters (`{{ }}`) may conflict with JS object syntax in some engines
-- Only highlights DataStar plugins (31 built-in + custom configured)
+- Only highlights Datastar plugins (31 built-in + custom configured)
 
 ## Adding Languages
 

@@ -11,7 +11,7 @@
 <script>
 export default {
   data() {
-    return { title: 'DataStar Test' }
+    return { title: 'Datastar Test' }
   }
 }
 </script>

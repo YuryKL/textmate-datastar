@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-// Counter component with DataStar attributes
+// Counter component with Datastar attributes
 templ Counter(initialCount int) {
 	<div>
 		<h2>Counter Component</h2>
@@ -13,7 +13,7 @@ templ Counter(initialCount int) {
 templ SearchBox() {
 	<div>
 		<h2>Search Box</h2>
-		<!-- DataStar with modifiers in templ -->
+		<!-- Datastar with modifiers in templ -->
 		<input
 			type="text"
 			data-bind:value__debounce.300ms="$search"
@@ -25,12 +25,12 @@ templ SearchBox() {
 	</div>
 }
 
-// Form component with DataStar validation
+// Form component with Datastar validation
 templ UserForm(user User) {
 	<form data-on:submit__prevent="@post('/api/users')">
 		<h2>User Form</h2>
 
-		<!-- Mixed templ and DataStar attributes -->
+		<!-- Mixed templ and Datastar attributes -->
 		<label for="name">Name:</label>
 		<input
 			id="name"
@@ -47,7 +47,7 @@ templ UserForm(user User) {
 			value={ user.Email }
 		/>
 
-		<!-- DataStar with multiple modifiers -->
+		<!-- Datastar with multiple modifiers -->
 		<button
 			type="submit"
 			data-on:click__prevent__throttle.1s="@post('/submit')"
@@ -57,10 +57,10 @@ templ UserForm(user User) {
 	</form>
 }
 
-// Conditional rendering with DataStar
+// Conditional rendering with Datastar
 templ AuthStatus(isLoggedIn bool) {
 	<div>
-		<!-- DataStar show/hide -->
+		<!-- Datastar show/hide -->
 		<div data-show="$user.isLoggedIn">
 			Welcome, <span data-text="$user.name">User</span>!
 			<button data-on:click="@post('/logout')">Logout</button>
@@ -72,7 +72,7 @@ templ AuthStatus(isLoggedIn bool) {
 	</div>
 }
 
-// Complex component with various DataStar features
+// Complex component with various Datastar features
 templ Dashboard() {
 	<div>
 		<h1>Dashboard</h1>
@@ -98,7 +98,7 @@ templ Dashboard() {
 			Total: <span data-text="$total">100</span>
 		</div>
 
-		<!-- Multiple DataStar attributes on one element -->
+		<!-- Multiple Datastar attributes on one element -->
 		<input
 			type="text"
 			data-bind:value__debounce.500ms__passive="$input"
@@ -106,7 +106,7 @@ templ Dashboard() {
 			placeholder="Type and press enter"
 		/>
 
-		<!-- Templ conditionals with DataStar -->
+		<!-- Templ conditionals with Datastar -->
 		if isLoggedIn {
 			<div data-show="$notifications.length > 0">
 				You have <span data-text="$notifications.length">0</span> notifications
@@ -115,7 +115,7 @@ templ Dashboard() {
 	</div>
 }
 
-// List component with DataStar
+// List component with Datastar
 templ TodoList(todos []Todo) {
 	<div>
 		<h2>Todo List</h2>
@@ -198,14 +198,14 @@ templ EdgeCases() {
 			data-bind:value__debounce.500ms__passive__capture="$input"
 		/>
 
-		<!-- DataStar in templ conditionals -->
+		<!-- Datastar in templ conditionals -->
 		if true {
 			<button data-on:click__prevent="$action()">
 				Inside conditional
 			</button>
 		}
 
-		<!-- DataStar in templ loops -->
+		<!-- Datastar in templ loops -->
 		for i := 0; i < 3; i++ {
 			<div data-on:click={ fmt.Sprintf("$items[%d].toggle()", i) }>
 				Item { fmt.Sprint(i) }
