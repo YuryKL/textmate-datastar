@@ -53,7 +53,7 @@
     "configuration": {
       "title": "Datastar",
       "properties": {
-        "datastar.customPlugins": {
+        "datastar.customAttributes": {
           "type": "array",
           "default": [],
           "items": {

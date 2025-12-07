@@ -40,7 +40,7 @@ Add custom plugins in `settings.json`:
 
 ```json
 {
-  "datastar.customPlugins": ["my-plugin", "custom-action"]
+  "datastar.customAttributes": ["my-plugin", "custom-action"]
 }
 ```
 

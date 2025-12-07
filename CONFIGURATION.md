@@ -6,7 +6,7 @@ Add to `settings.json` (user or workspace):
 
 ```json
 {
-  "datastar.customPlugins": ["my-plugin", "api-handler"]
+  "datastar.customAttributes": ["my-plugin", "api-handler"]
 }
 ```
 
